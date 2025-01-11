@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Recipe Reformatter</title>
+        <style>
+            body {
+                margin:100px;
+                font-family:Arial;
+            }
+            form {
+                display:flex;
+                align-items:center;
+                gap:10px;
+            }
+            input {
+                width:300px;
+            }
+            button {
+                background-color:#5dbb63;
+                border-radius:4px;
+                color:white;
+                border:none;
+                padding:3px 5px;
+                font-weight:bold;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 id="header">Recipe Reformatter</h1>
+        <p id="instruction">Paste a recipe link in the text box below.</p>
+        <form action="/printable" method="get">
+            <input type="text" name="textInput">
+            <button type="submit">GO</button>
+        </form>
+    </body>
+</html>
