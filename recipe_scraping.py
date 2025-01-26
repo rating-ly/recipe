@@ -29,10 +29,10 @@ def text_from_html(body):
 
 def extract_ingredients(text):
     #Currently following regex is used to extract ingredients text:
-    #(?<=foo)?▢.*(?=Instructions)
+    #(?<=Ingredients)?▢.*(?=Instructions)
     #it can be tested at https://regex101.com/
     #it's a bad regex, because it will not work for other websites. 
-    ingredients_text = re.search("(?<=foo)?▢.*(?=Instructions)", text).group(0)
+    ingredients_text = re.search("(?<=Ingredients)?▢.*(?=Instructions)", text).group(0)
     ingredients_list = re.split("▢", ingredients_text)
 
     return ingredients_list
@@ -60,18 +60,18 @@ print(recipe_json)
 '''
 following work needs to be done now:
 
-1. The Ingredients have empty first item and empty spaces around the strings, 
+(Jenny) 1. The Ingredients have empty first item and empty spaces around the strings, 
 those need to be cleaned up
 
 
 2. Similar to Ingredients, following items also needs to be extracted and added to:
-    2.a Title, in this case - The Best Chocolate Cake Recipe {Ever}
-    2.b Prep time, Cook time, total time, servings
-    2.c Cooking Instructions
-    2.d Equipment
-    2.e Notes
+(Jenny) 2.a Title, in this case - The Best Chocolate Cake Recipe {Ever}
+(Jenny) 2.b Prep time, Cook time, total time, servings
+(Zain) 2.c Cooking Instructions
+(Zain) 2.d Equipment
+(Zain) 2.e Notes
 
-3. Once done with items assigned to you, test your code on 3 more recipes from the same website 
+(Jenny & Zain)3. Once done with items assigned to you, test your code on 3 more recipes from the same website 
 and try to fix the issues you see. You can use following recipes:
 
     3.a https://addapinch.com/best-chocolate-chip-cookies-recipe/
@@ -79,7 +79,7 @@ and try to fix the issues you see. You can use following recipes:
     3.c https://addapinch.com/blueberry-muffins/
 
 
-Next week, we will try to run your code using recipes from other websites and discuss
+(Jenny & Zain) 4. Next week, we will try to run your code using recipes from other websites and discuss
 Find 5 recipes from other websites (not addapinch.com) that we can use
 
 
