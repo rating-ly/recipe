@@ -38,6 +38,7 @@ def extract_ingredients(text):
 
     return ingredients_list
 
+
 def extract_title(text):
     title_text = re.search(r"(?<=Recipe Index\s\s\|\s\s)(.*?)(?=\sRobyn)", text).group(0)
     title_text = title_text[title_text.index("Recipe") + 8:]
@@ -64,6 +65,14 @@ def extract_servings(text):
 
     return servings_text
 
+def extract_instructions(text):
+ 
+    instructions_text = re.search("(?<=Step-by-Step Instructions\s\s).*?(?=\s\s\s)", text).group(0)
+    instructions_list = re.split("\s\s", instructions_text)
+
+    return instructions_list
+
+
 #fetch the content of the URL
 #https://addapinch.com/the-best-chocolate-cake-recipe-ever/
 #https://addapinch.com/best-chocolate-chip-cookies-recipe/
@@ -78,6 +87,7 @@ html = urlopen(req).read()
 visible_text = text_from_html(html)
 write_text_to_file(visible_text, 'temp_output.txt')
 ingredients_list = extract_ingredients(visible_text)
+
 title_text = extract_title(visible_text)
 preptime_text = extract_preptime(visible_text)
 cooktime_text = extract_cooktime(visible_text)
@@ -91,6 +101,10 @@ recipe_dictionary['prep time'] = preptime_text
 recipe_dictionary['cook time'] = cooktime_text
 recipe_dictionary['total time'] = totaltime_text
 recipe_dictionary['servings'] = servings_text
+
+instructions_list = extract_instructions(visible_text)
+
+recipe_dictionary['instructions'] = instructions_list
 
 recipe_json = json.dumps(recipe_dictionary, indent=4)
 
