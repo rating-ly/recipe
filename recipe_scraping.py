@@ -23,7 +23,9 @@ def tag_visible(element):
 def text_from_html(body):
     soup = BeautifulSoup(body, 'html.parser')
     texts = soup.findAll(string=True)
-    visible_texts = filter(tag_visible, texts)  
+    visible_texts = filter(tag_visible, texts) 
+    for t in visible_texts:
+        print(t) 
     return u" ".join(t.strip() for t in visible_texts)
 
 
@@ -45,7 +47,7 @@ def extract_instructions(text):
     return instructions_list
 
 #fetch the content of the URL
-req =  Request('https://addapinch.com/the-best-chocolate-cake-recipe-ever/', headers={'User-Agent': 'Mozilla/5.0'})
+req =  Request('https://addapinch.com/skillet-mac-cheese-recipe/', headers={'User-Agent': 'Mozilla/5.0'})
 #read the underlying source code of the web page
 html = urlopen(req).read()
 
