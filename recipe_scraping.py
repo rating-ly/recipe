@@ -37,6 +37,12 @@ def extract_ingredients(text):
 
     return ingredients_list
 
+def extract_instructions(text):
+ 
+    instructions_text = re.search("(?<=Step-by-Step Instructions\s\s).*?(?=\s\s\s)", text).group(0)
+    instructions_list = re.split("\s\s", instructions_text)
+
+    return instructions_list
 
 #fetch the content of the URL
 req =  Request('https://addapinch.com/the-best-chocolate-cake-recipe-ever/', headers={'User-Agent': 'Mozilla/5.0'})
@@ -48,10 +54,10 @@ html = urlopen(req).read()
 visible_text = text_from_html(html)
 write_text_to_file(visible_text, 'temp_output.txt')
 ingredients_list = extract_ingredients(visible_text)
-
+instructions_list = extract_instructions(visible_text)
 recipe_dictionary = {}
 recipe_dictionary['ingredients'] = ingredients_list
-
+recipe_dictionary['instructions'] = instructions_list
 recipe_json = json.dumps(recipe_dictionary, indent=4)
 
 write_text_to_file(recipe_json, 'recipe_output.json')
