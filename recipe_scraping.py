@@ -8,7 +8,7 @@ import re, json
 #writes passed text into file with filename that is passed
 def write_text_to_file(text, filename):
     f = open(filename, 'w')
-    #f.write(text)
+    f.write(text)
     f.close()
 
 
@@ -24,8 +24,6 @@ def text_from_html(body):
     soup = BeautifulSoup(body, 'html.parser')
     texts = soup.findAll(string=True)
     visible_texts = filter(tag_visible, texts) 
-    for t in visible_texts:
-        print(t) 
     return u" ".join(t.strip() for t in visible_texts)
 
 
