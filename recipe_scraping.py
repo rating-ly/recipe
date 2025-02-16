@@ -66,9 +66,20 @@ def extract_servings(text):
     return servings_text
 
 def extract_instructions(text):
- 
-    instructions_text = re.search("(?<=Step-by-Step Instructions\s\s).*?(?=\s\s\s)", text).group(0)
-    instructions_list = re.split("\s\s", instructions_text)
+    instructions_patterns = ["(?<=Step-by-Step Instructions\s\s).*?(?=\s\s\s)",
+     "(?<=Steps for Making and Baking the Cookies\s\s).*?(How)"]
+    item = 0
+    failed = True
+    instructions_list = [""]
+
+    while failed and item < len(instructions_patterns):
+        try:
+            instructions_text = re.search(instructions_patterns[item], text).group(0)
+            instructions_list = re.split("\s\s", instructions_text)
+            failed = False
+        except:
+            item += 1
+            failed = True
 
     return instructions_list
 
@@ -79,7 +90,7 @@ def extract_instructions(text):
 #https://addapinch.com/best-chocolate-chip-cookies-recipe/
 #https://addapinch.com/skillet-mac-cheese-recipe/
 #https://addapinch.com/blueberry-muffins/
-req =  Request('https://addapinch.com/the-best-chocolate-cake-recipe-ever/', headers={'User-Agent': 'Mozilla/5.0'})
+req =  Request('https://addapinch.com/best-chocolate-chip-cookies-recipe/', headers={'User-Agent': 'Mozilla/5.0'})
 #read the underlying source code of the web page
 html = urlopen(req).read()
 
