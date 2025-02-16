@@ -1,8 +1,12 @@
 from flask import Flask
 from flask import render_template
 from bs4 import BeautifulSoup
+from flask import request, make_response
 from urllib.request import Request, urlopen
 import re
+import scraper
+import pdf_generator 
+
 #create a Flask application
 #the argument to Flask is the name of the application's module
 #since we are running our application in a single file, leave it as __name__
@@ -15,7 +19,15 @@ def hello_world():
 
 @app.route('/printable', methods=['GET'])
 def printable():
-    return render_template('printable.html')
+    url = request.args.get('textInput')
+    json = scraper.scrape(url)
+    pdf = pdf_generator.json_to_pdf(json)
+
+    response = make_response(pdf.output(dest='S').encode('latin-1'))
+    response.headers['Content-Type'] = 'application/pdf'
+    response.headers['Content-Disposition'] = 'inline; filename=recipe.pdf'
+
+    return response
 
 def scrape():
     req = Request('https://addapinch.com/the-best-chocolate-cake-recipe-ever/', headers={'User-Agent': 'Mozilla/5.0'})

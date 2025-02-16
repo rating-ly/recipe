@@ -1,6 +1,19 @@
 import json
 from fpdf import FPDF
 
+
+def json_to_pdf(json_string):
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=12)
+
+    data = json.loads(json_string)
+    for key, value in data.items():
+        pdf.cell(200, 10, txt=f"{key}: {value}", ln=1)
+
+    return pdf
+
+
 def convert_json_to_pdf(json_file_path, pdf_file_path):
     """
     Converts a JSON file to a PDF file.
