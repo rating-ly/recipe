@@ -1,55 +1,11 @@
 
-
-from bs4 import BeautifulSoup
-from bs4.element import Comment
-from urllib.request import Request, urlopen
-import re, json
+from recipe_scrapers import scrape_me
 
 
 #the main method that takes the URL and scrapes it, returns the recipe JSON
-def scrape(url):
-    print("scrpaping:", url)
-    header= {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) ' 
-      'AppleWebKit/537.11 (KHTML, like Gecko) '
-      'Chrome/23.0.1271.64 Safari/537.11',
-      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-      'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
-      'Accept-Encoding': 'none',
-      'Accept-Language': 'en-US,en;q=0.8',
-      'Connection': 'keep-alive'} 
-
-    request=Request(url,None,header)
-    response = urlopen(request)
-
-    html = response.read()
-    #extract visible text from the web page (this will remove the HTML, JavaScript
-    #and other content that cannot be read by the user)
-    visible_text = text_from_html(html)
-    #write_text_to_file(visible_text, 'temp_output.txt')
-    ingredients_list = extract_ingredients(visible_text)
-
-    title_text = extract_title(visible_text)
-    preptime_text = extract_preptime(visible_text)
-    cooktime_text = extract_cooktime(visible_text)
-    totaltime_text = extract_totaltime(visible_text)
-    servings_text = extract_servings(visible_text)
-
-    recipe_dictionary = {}
-    recipe_dictionary['ingredients'] = ingredients_list
-    recipe_dictionary['title'] = title_text
-    recipe_dictionary['prep time'] = preptime_text
-    recipe_dictionary['cook time'] = cooktime_text
-    recipe_dictionary['total time'] = totaltime_text
-    recipe_dictionary['servings'] = servings_text
-
-    instructions_list = extract_instructions(visible_text)
-
-    recipe_dictionary['instructions'] = instructions_list
-
-    recipe_json = json.dumps(recipe_dictionary, indent=4)
-
-    #write_text_to_file(recipe_json, 'recipe_output.json')
-    return recipe_json
+def scrape(urlp):
+    scraper = scrape_me(urlp)
+    return scraper.to_json()
 
 
 #writes passed text into file with filename that is passed
@@ -131,5 +87,4 @@ def extract_instructions(text):
     return instructions_list
 
 
-
-
+scrape("https://www.allrecipes.com/recipe/158968/spinach-and-feta-turkey-burgers/")

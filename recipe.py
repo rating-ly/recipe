@@ -19,15 +19,15 @@ def hello_world():
 
 @app.route('/printable', methods=['GET'])
 def printable():
-    url = request.args.get('textInput')
-    json = scraper.scrape(url)
-    pdf = pdf_generator.json_to_pdf(json)
+    urlp = request.args.get('textInput')
+    json = scraper.scrape(urlp)
+    '''pdf = pdf_generator.json_to_pdf(json)
 
     response = make_response(pdf.output(dest='S').encode('latin-1'))
     response.headers['Content-Type'] = 'application/pdf'
     response.headers['Content-Disposition'] = 'inline; filename=recipe.pdf'
-
-    return response
+'''
+    return urlp
 
 def scrape():
     req = Request('https://addapinch.com/the-best-chocolate-cake-recipe-ever/', headers={'User-Agent': 'Mozilla/5.0'})
