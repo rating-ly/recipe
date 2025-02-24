@@ -6,6 +6,8 @@ from urllib.request import Request, urlopen
 import re
 import scraper
 import pdf_generator 
+import json
+
 
 #create a Flask application
 #the argument to Flask is the name of the application's module
@@ -18,22 +20,38 @@ def hello_world():
     return render_template('home.html')
 
 @app.route('/printable', methods=['GET'])
-def printable():
-    urlp = request.args.get('textInput')
-    json = scraper.scrape(urlp)
-    '''pdf = pdf_generator.json_to_pdf(json)
-
-    response = make_response(pdf.output(dest='S').encode('latin-1'))
-    response.headers['Content-Type'] = 'application/pdf'
-    response.headers['Content-Disposition'] = 'inline; filename=recipe.pdf'
 '''
-    return urlp
+works for:
+https://www.allrecipes.com/recipe/158968/spinach-and-feta-turkey-burgers/
+https://www.allrecipes.com/recipe/10402/the-best-rolled-sugar-cookies/
 
-def scrape():
-    req = Request('https://addapinch.com/the-best-chocolate-cake-recipe-ever/', headers={'User-Agent': 'Mozilla/5.0'})
-    html_page = urlopen(req).read()
-    print(html_page)
+breaks for:
+https://addapinch.com/the-best-chocolate-cake-recipe-ever/
+https://www.baking-sense.com/2024/03/08/coconut-layer-cake/
+
+'''
+def printable():
+    json_string = ""
+    try:
+        urlp = request.args.get('textInput')
+        js = scraper.scrape(urlp)
+        json_string = json.dumps(js)
+        print(json_string)
+    except Exception as e:
+        print("error {e}")
+
+    response = None
+    try:
+        pdf = pdf_generator.json_to_pdf(json_string)
+        response = make_response(pdf.output(dest='S').encode('latin-1'))
+        response.headers['Content-Type'] = 'application/pdf'
+        response.headers['Content-Disposition'] = 'inline; filename=recipe.pdf'
+    except Exception as e:
+        print("Error rendering PDF {e}")
+        
+    return response
+
 
 if __name__ == '__main__':
     app.run(host= '0.0.0.0')
-    
+    #app.run(host='127.0.0.1',port=4455,debug=True)
