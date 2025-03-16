@@ -20,16 +20,7 @@ def hello_world():
     return render_template('home.html')
 
 @app.route('/printable', methods=['GET'])
-'''
-works for:
-https://www.allrecipes.com/recipe/158968/spinach-and-feta-turkey-burgers/
-https://www.allrecipes.com/recipe/10402/the-best-rolled-sugar-cookies/
 
-breaks for:
-https://addapinch.com/the-best-chocolate-cake-recipe-ever/
-https://www.baking-sense.com/2024/03/08/coconut-layer-cake/
-
-'''
 def printable():
     json_string = ""
     try:
@@ -53,5 +44,5 @@ def printable():
 
 
 if __name__ == '__main__':
-    app.run(host= '0.0.0.0')
-    #app.run(host='127.0.0.1',port=4455,debug=True)
+    #app.run(host= '0.0.0.0')
+    app.run(host='127.0.0.1',port=4455,debug=True)
