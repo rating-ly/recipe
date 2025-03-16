@@ -33,11 +33,13 @@ def printable():
     json_string = ""
     try:
         urlp = request.args.get('textInput')
+        print(urlp)
         js = scraper.scrape(urlp)
+        print(js)
         json_string = json.dumps(js)
         print(json_string)
     except Exception as e:
-        print("error {e}")
+        print("error: ",e )
 
     response = None
     try:
@@ -46,7 +48,7 @@ def printable():
         response.headers['Content-Type'] = 'application/pdf'
         response.headers['Content-Disposition'] = 'inline; filename=recipe.pdf'
     except Exception as e:
-        print("Error rendering PDF {e}")
+        print("Error rendering PDF: ", e)
         
     return response
 

@@ -4,7 +4,10 @@ from recipe_scrapers import scrape_me
 
 #the main method that takes the URL and scrapes it, returns the recipe JSON
 def scrape(urlp):
+    print("inside scrape")
     scraper = scrape_me(urlp)
+    print("scraper")
+    print(scraper)
     return scraper.to_json()
 
 
@@ -87,4 +90,3 @@ def extract_instructions(text):
     return instructions_list
 
 
-scrape("https://www.allrecipes.com/recipe/158968/spinach-and-feta-turkey-burgers/")
