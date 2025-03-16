@@ -21,6 +21,14 @@ def hello_world():
 
 @app.route('/printable', methods=['GET'])
 
+#works for:
+#https://www.allrecipes.com/recipe/158968/spinach-and-feta-turkey-burgers/
+#https://www.allrecipes.com/recipe/10402/the-best-rolled-sugar-cookies/
+
+#breaks for:
+#https://addapinch.com/the-best-chocolate-cake-recipe-ever/
+#https://www.baking-sense.com/2024/03/08/coconut-layer-cake/
+
 def printable():
     json_string = ""
     try:
