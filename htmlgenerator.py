@@ -5,12 +5,17 @@ def generateHTML(js):
     html_content = ""
 
     head = "<head><title>"+js['description']+"</title></head>"
+
     html_content +=head
 
     html_content += "<body>"
 
     title = "<h1>"+js['description']+"</h1>"
-    html_content += title 
+    html_content += title
+
+
+    image = "<img src="+ js['image'] + ">"
+    html_content += image
 
     html_content += "</body>"
 
