@@ -22,5 +22,14 @@
 		{% for item in data['ingredients'] %}
         <li>{{ item }}</li>
         {% endfor %}
+        <hr>
+        {% for item in data['keywords'] %}
+        <li>{{ item }}</li>
+        {% endfor %}
+        <hr>
+        {% for key, value in data['nutrients'].items() %}
+        <li>{{ key }}: {{ value }}</li>
+        {% endfor %}
+
 	</body>
 </html>
