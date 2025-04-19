@@ -2,7 +2,6 @@ from flask import Flask
 from flask import render_template
 from flask import request, make_response
 import scraper
-import htmlgenerator
 import json
 
 
@@ -13,23 +12,15 @@ def hello_world():
     return render_template('home.html')
 
 @app.route('/printable', methods=['GET'])
-
 def printable():
-    json_string = ""
+    jsdata = {}
     try:
         urlp = request.args.get('textInput')
         js = scraper.scrape(urlp)
+        print(type(js))
     except Exception as e:
         print("error: ",e )
-
-    response = None
-    try:
-        html_content = htmlgenerator.generateHTML(js)
-        response = make_response(html_content)
-    except Exception as e:
-        print("Error rendering PDF: ", e)
-        
-    return response
+    return render_template('printable.html', data=js)
 
 
 if __name__ == '__main__':

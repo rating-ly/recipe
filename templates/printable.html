@@ -14,5 +14,13 @@
 	</head>
 	<body>
 		<a href="/"><img id="home" src="https://static.vecteezy.com/system/resources/previews/000/366/438/original/home-vector-icon.jpg" alt="Home"></a>
+		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+		{{data}}
+		<hr>
+		{{data['author']}}
+		<hr>
+		{% for item in data['ingredients'] %}
+        <li>{{ item }}</li>
+        {% endfor %}
 	</body>
 </html>
