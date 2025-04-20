@@ -11,16 +11,41 @@
 		<br/><br/><br/>
 		{{data}}
 		<hr>
+		<h1>{{data['title']}}</h1>
+		<hr>
+		<img id="cover" src="{{data['image']}}">
+		<hr>
 		{{data['author']}}
 		<hr>
+		<h2>Ingredients</h2>
 		{% for item in data['ingredients'] %}
         <li>{{ item }}</li>
         {% endfor %}
         <hr>
+        {% for item in data['ingredient_groups'] %}
+        {% for key, value in item.items() %}
+        <li>{{ key }}: </li>
+        {%if value %}
+        {% for items in value %}
+        <li>{{ items }}</li>
+	    {% endfor %}
+	    {% endif %}
+        {% endfor %}
+        {% endfor %}
+        <hr>
+        <h2>Instructions</h2>
+        <ol>
+	        {% for item in data['instructions_list'] %}
+	        <li>{{ item }}</li>
+	        {% endfor %}
+    	</ol>
+        <hr>
+        <h2>Keywords</h2>
         {% for item in data['keywords'] %}
         <li>{{ item }}</li>
         {% endfor %}
         <hr>
+        <h2>Nutrients</h2>
         {% for key, value in data['nutrients'].items() %}
         <li>{{ key }}: {{ value }}</li>
         {% endfor %}
