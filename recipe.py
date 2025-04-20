@@ -1,11 +1,25 @@
-from flask import Flask
+from flask import Flask, send_file
 from flask import render_template
 from flask import request, make_response
 import scraper
 import json
+from xhtml2pdf import pisa
+import requests
+from io import BytesIO
 
 
 app=Flask(__name__, static_folder="static")
+
+def convert_url_to_pdf(url):
+    response = requests.get(url)
+    if response.status_code != 200:
+        print(f"Failed to fetch URL: {url}")
+        return False
+    
+    html_content = response.text
+    result = open('test.pdf', "w+b")
+    pdf = pisa.pisaDocument(BytesIO(html_content.encode('utf-8')), dest=result)
+    return pdf
 
 @app.route('/')
 def hello_world():
@@ -21,6 +35,11 @@ def printable():
     except Exception as e:
         print("error: ",e )
     return render_template('printable.html', data=js)
+
+@app.route('/pdf', methods=['GET'])
+def get_pdf():
+    urlp = request.args.get('rurl')
+    return send_file('test.pdf', mimetype='application/pdf',as_attachment=True, download_name='example.pdf')
 
 
 if __name__ == '__main__':
