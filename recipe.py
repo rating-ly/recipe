@@ -6,6 +6,7 @@ import json
 from xhtml2pdf import pisa
 import requests
 from io import BytesIO
+import os
 
 
 app=Flask(__name__, static_folder="static")
@@ -39,6 +40,11 @@ def printable():
 @app.route('/pdf', methods=['GET'])
 def get_pdf():
     urlp = request.args.get('rurl')
+    try:
+        os.remove('test.pdf')
+    except FileNotFoundError:
+        print("test.pdf not found")
+    convert_url_to_pdf(urlp)
     return send_file('test.pdf', mimetype='application/pdf',as_attachment=True, download_name='example.pdf')
 
 
