@@ -18,13 +18,49 @@ button {
     padding:3px 5px;
     font-weight:bold;
 }
-#home {
-    top:50px;
-    left:50px;
-    height:100px;
-    width:100px;
-    position:absolute;
+h1, h2, table, #author, #nutrients {
+    text-align:center;
+}
+#reciprinter {
+    text-align:left;
+}
+.header, .imggrid, .igrid {
+    display:grid;
+    justify-items:center;
+}
+.header {
+    grid-template-columns:1fr 5fr 1fr;
+    align-items:center;
+}
+#title {
+    margin:0px;
+}
+.himg {
+    height:75px;
+    width:75px;
+}
+#author {
+    margin:0px;
+}
+.imggrid {
+    grid-template-columns:1fr 2fr;
+    margin-top:10px;
 }
 #cover {
     height:200px;
+    margin:0px;
+}
+#oview {
+    width:100%;
+}
+.tableh td {
+    font-weight:bold;
+    font-size:18px;
+    text-decoration:underline;
+}
+.igrid {
+    grid-template-columns:1fr 2fr;
+}
+#nutrientsh {
+    margin:0px;
 }
