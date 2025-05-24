@@ -6,9 +6,9 @@
 	</head>
 	<body>
 		<div class="header">
-			<a href="/"><img class="himg" id="home" src="https://static.vecteezy.com/system/resources/previews/000/366/438/original/home-vector-icon.jpg" alt="Home"></a>
+			<a href="/"><img class="himg" id="home" src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Home"></a>
 			<h1 id="title">{{data['title']}}</h1>
-			<a id="pdf" href='pdf?rurl={{ request.url }}'><img class="himg" id="home" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaLnfexVH4aZTNMXYe1VkjEL6DxxzJ1nXUTQ&s" alt="Download PDF"></a>
+			<a id="pdf" href='pdf?rurl={{ request.url }}'><img class="himg" id="home" src="{{ url_for('static', filename='images/downloadpdf.jpg') }}" alt="Download PDF"></a>
 		</div>
 		<p id="author">{{data['author']}}</p>
 		<div class="imggrid">
