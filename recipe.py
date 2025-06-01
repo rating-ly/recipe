@@ -31,20 +31,24 @@ def printable():
     jsdata = {}
     try:
         urlp = request.args.get('textInput')
+        hpdf = request.args.get('hpdf')
         js = scraper.scrape(urlp)
-        print(type(js))
+        template = 'printable.html'
+        if hpdf:
+            template = 'hpdf.html'
     except Exception as e:
         print("error: ",e )
-    return render_template('printable.html', data=js)
+    return render_template(template, data=js)
 
 @app.route('/pdf', methods=['GET'])
 def get_pdf():
     urlp = request.args.get('rurl')
+    print(urlp)
     try:
         os.remove('test.pdf')
     except FileNotFoundError:
         print("test.pdf not found")
-    convert_url_to_pdf(urlp)
+    convert_url_to_pdf(urlp[:-1]+"&hpdf=true")
     return send_file('test.pdf', mimetype='application/pdf',as_attachment=True, download_name='example.pdf')
 
 

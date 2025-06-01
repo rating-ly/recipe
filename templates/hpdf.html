@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<body>
+		<h1 id="title">{{data['title']}}</h1>
+		<p id="author">{{data['author']}}</p>
+			<img id="cover" src="{{data['image']}}" >
+			<table id="oview">
+				<tr class="tableh">
+					<td>Prep Time</td>
+					<td>Cook Time</td>
+					<td>Total Time</td>
+				</tr>
+				<tr>
+					<td>{{data['prep_time']}} min</td>
+					<td>{{data['cook_time']}} min</td>
+					<td>{{data['total_time']}} min</td>
+				</tr>
+				<tr class="tableh">
+					<td>Calories</td>
+					<td>Servings</td>
+					<td>Rating</td>
+				</tr>
+				<tr>
+					<td>{{data['nutrients']['calories']}}</td>
+					<td>{{data['yields']}}</td>
+					<td>{{data['ratings']}}</td>
+				</tr>
+			</table>
+			
+	</body>
+</html>
