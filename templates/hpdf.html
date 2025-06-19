@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 	<body>
 		<h1 id="title">{{data['title']}}</h1>
@@ -28,4 +28,68 @@
 			</table>
 			
 	</body>
+</html> -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>{{data['title']}} - Printable Recipe</title>
+	<style>
+		#cover {
+			position: absolute;
+			top: 20px;
+			right: 20px;
+			width: 120px;
+			height: auto;
+		}
+	</style>
+</head>
+<body style="font-family: Arial, sans-serif; font-size: 12px; margin: 20px; color: #000; line-height: 1.4; position: relative;">
+
+	<h1 style="margin: 0 0 5px 0;">{{data['title']}}</h1>
+	<p style="margin: 0 0 5px 0;">By {{data['author']}}</p>
+
+<table>
+	<tr>
+		<td>
+			<p style="margin: 0 0 5px 0;font-size: 10px;"><strong>Prep Time:</strong> {{data['prep_time']}} min | 
+			<strong>Cook Time:</strong> {{data['cook_time']}} min | 
+			<strong>Total Time:</strong> {{data['total_time']}} min</p>
+
+			<p style="margin: 0 0 10px 0;font-size: 10px;"><strong>Calories:</strong> {{data['nutrients']['calories']}} | 
+			<strong>Servings:</strong> {{data['yields']}} | 
+			<strong>Rating:</strong> {{data['ratings']}}</p>
+
+			<h2 style="margin: 10px 0 5px 0;">Ingredients</h2>
+			<ul style="margin: 0 0 10px 20px; padding: 0;">
+				{% for item in data['ingredients'] %}
+					<li style="margin: 0 0 2px 0;">{{ item }}</li>
+				{% endfor %}
+			</ul>
+		</td>
+		<td width = "30%">
+			<!-- Image in top-right corner, not affecting layout -->
+			<img id="cover" src="{{data['image']}}" >
+		</td>
+	</tr>
+</table>
+
+	<h2 style="margin: 5px 0 5px 0;">Instructions</h2>
+	<ol style="margin: 0 0 10px 20px; padding: 0;">
+		{% for item in data['instructions_list'] %}
+			<li style="margin: 0 0 2px 0;">{{ item }}</li>
+		{% endfor %}
+	</ol>
+
+	<h2 style="margin: 5px 0 5px 0;">Nutrients</h2>
+	<p style="margin: 0;">
+		{{data['nutrients']['carbohydrateContent']}} carbs • {{data['nutrients']['proteinContent']}} protein • {{data['nutrients']['fatContent']}} fat •
+		{{data['nutrients']['saturatedFatContent']}} sat fat • {{data['nutrients']['cholesterolContent']}} cholesterol •
+		{{data['nutrients']['sodiumContent']}} sodium • {{data['nutrients']['fiberContent']}} fiber •
+		{{data['nutrients']['sugarContent']}} sugar
+	</p>
+
+</body>
 </html>
+
+
